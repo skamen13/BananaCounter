@@ -24,9 +24,9 @@ app.post('/', (req, res) => {
     let responseText = '';
 
     if (vowelsCheck.length === vowelsCompare.length && consonantsCheck.length === consonantsCompare.length) {
-        responseText = `${wordToCheck} равно ${wordToCompare}`;
-    } else {
         responseText = `${wordToCheck} не ${wordToCompare}`;
+    } else {
+        responseText = `${wordToCheck} ${wordToCompare}`;
     }
 
 
