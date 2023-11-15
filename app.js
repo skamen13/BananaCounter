@@ -8,24 +8,35 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
+function compareWords(word1, word2) {
+  const vowels = /[aeiouаеёиоуыэюя]/gi;
+  const consonants = /[bcdfghjklmnpqrstvwxyzбвгджзйклмнпрстфхцчшщ]/gi;
+
+  // Функция для подсчета количества гласных и согласных букв
+  function countLetters(word) {
+    const vowelsCount = (word.match(vowels) || []).length;
+    const consonantsCount = (word.match(consonants) || []).length;
+    return { vowels: vowelsCount, consonants: consonantsCount };
+  }
+
+  const word1Counts = countLetters(word1.toLowerCase());
+  const word2Counts = countLetters(word2.toLowerCase());
+
+  // Сравниваем количество гласных и согласных букв
+  if (
+    word1Counts.vowels === word2Counts.vowels &&
+    word1Counts.consonants === word2Counts.consonants
+  ) {
+    return `${word1} ${word2}`;
+  } else {
+    return `${word1} не ${word2}`;
+  }
+}
+
 app.post('/', (req, res) => {
-    const wordToCompare = req.body.wordToCompare.toLowerCase();
-    const wordToCheck = req.body.wordToCheck.toLowerCase();
 
-    const vowelsCompare = wordToCompare.match(/[aeiouаеёиоуыэюя]/gi) || [];
-    const consonantsCompare = wordToCompare.match(/[bcdfghjklmnpqrstvwxyzбвгджзйклмнпрстфхцчшщ]/gi) || [];
-
-    const vowelsCheck = wordToCheck.match(/[aeiouаеёиоуыэюя]/gi) || [];
-    const consonantsCheck = wordToCheck.match(/[bcdfghjklmnpqrstvwxyzбвгджзйклмнпрстфхцчшщ]/gi) || [];
-
-    let responseText = '';
-
-    if (vowelsCompare.length != consonantsCompare.length) {
-        responseText = `${wordToCheck} не ${wordToCompare}`;
-    } else {
-        responseText = `${wordToCheck} ${wordToCompare}`;
-    }
-
+    let responseText = compareWords(res, req);
+    
     res.send(`
     <!DOCTYPE html>
     <html lang="en">
