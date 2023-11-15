@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Сравнение слов</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Введите два слова для сравнения</h1>
+    <form action="/" method="post">
+        <div class="input-container">
+            <input type="text" name="wordToCompare" id="wordToCompareInput" placeholder="Слово для сравнения" value="банан">
+        </div>
+        <div class="input-container">
+            <input type="text" name="wordToCheck" id="wordToCheckInput" placeholder="Слово для проверки" value="банан">
+        </div>
+        <button type="submit">Проверить</button>
+    </form>
+</div>
+
+<script>
+    const wordToCompareInput = document.getElementById('wordToCompareInput');
+    const wordToCheckInput = document.getElementById('wordToCheckInput');
+
+    // Получаем значение из localStorage и устанавливаем его в поля ввода
+    const storedWordToCompare = localStorage.getItem('wordToCompare');
+    const storedWordToCheck = localStorage.getItem('wordToCheck');
+
+    if (storedWordToCompare) {
+        wordToCompareInput.value = storedWordToCompare;
+    }
+
+    if (storedWordToCheck) {
+        wordToCheckInput.value = storedWordToCheck;
+    }
+
+    // Сохраняем введенные слова в localStorage
+    wordToCompareInput.addEventListener('input', (event) => {
+        localStorage.setItem('wordToCompare', event.target.value);
+    });
+
+    wordToCheckInput.addEventListener('input', (event) => {
+        localStorage.setItem('wordToCheck', event.target.value);
+    });
+</script>
+</body>
+</html>
