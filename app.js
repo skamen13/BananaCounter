@@ -20,7 +20,7 @@ app.post('/', (req, res) => {
 
     let responseText = '';
 
-    if (vowelsCheck.length === vowelsCompare.length && consonantsCheck.length === consonantsCompare.length) {
+    if (vowelsCompare.length == consonantsCompare.length) {
         responseText = `${wordToCheck} не ${wordToCompare}`;
     } else {
         responseText = `${wordToCheck} ${wordToCompare}`;
